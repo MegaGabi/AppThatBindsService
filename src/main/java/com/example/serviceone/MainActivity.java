@@ -3,6 +3,7 @@ package com.example.serviceone;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -38,6 +39,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.i("MyTAG", "Created");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i("MyTAG", "Started");
 
         final EditText edtX = (EditText) findViewById(R.id.editX);
         final EditText edtY = (EditText) findViewById(R.id.editY);
@@ -70,16 +77,10 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent();
         intent.setClassName("com.example.serviceone", "com.example.serviceone.ServiceOne");
-        if(!bindService(intent, mConnection, BIND_AUTO_CREATE))
+        if(!bindService(intent, mConnection, Context.BIND_AUTO_CREATE))
         {
             Log.i("MyTAG", "fail");
         }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.i("MyTAG", "Started");
     }
 
     @Override
